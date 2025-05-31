@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yönetici Paneli</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <p>Yükleniyor...</p>
+  </div>
+
+  <script>
+    // Token kontrolü
+    const token = localStorage.getItem('admin_token');
+
+    if (!token) {
+      // Token yoksa geri giriş sayfasına yönlendir
+      window.location.href = 'index.html';
+    }
+
+    // Geçerli sayfaları belirle
+    const allowedPages = {
+      'admin-panel': 'pages/admin-panel.html',
+      'cars': 'pages/cars.html'
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const pageKey = urlParams.get('page') || 'admin-panel'; // default sayfa
+
+    const pagePath = allowedPages[pageKey];
+
+    if (!pagePath) {
+      document.getElementById("app").innerHTML = "<p>Geçersiz sayfa isteği.</p>";
+    } else {
+      loadPage(pagePath);
+    }
+
+    function loadPage(path) {
+      fetch(path, {
+        headers: { 'Authorization': token }
+      })
+        .then(res => {
+          if (!res.ok) throw new Error();
+          return res.text();
+        })
+        .then(html => {
+          document.getElementById("app").innerHTML = html;
+        })
+        .catch(() => {
+          document.getElementById("app").innerHTML = "<p>Sayfa yüklenemedi.</p>";
+        });
+    }
+  </script>
+</body>
+</html>
