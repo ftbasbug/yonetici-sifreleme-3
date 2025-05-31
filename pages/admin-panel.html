@@ -1,0 +1,80 @@
+<!-- pages/admin-panel.html -->
+<div style="display: flex; height: 100vh; font-family: Arial, sans-serif;">
+
+  <!-- Sol Menü -->
+  <aside style="width: 250px; background-color: #f4f4f4; padding: 1rem; box-shadow: 2px 0 5px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between;">
+    <div>
+      <!-- Tarih -->
+      <div style="font-size: 0.9rem; color: #333; margin-bottom: 1rem;" id="currentDate"></div>
+
+      <!-- Bugünkü Rezervasyonlar -->
+      <div>
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem;">Bugünkü Rezervasyonlar</h3>
+        <ul id="todayReservations" style="list-style: none; padding-left: 1rem; margin: 0;">
+          <!-- JavaScript ile doldurulacak -->
+        </ul>
+      </div>
+    </div>
+
+    <!-- Menü -->
+    <div>
+      <hr style="margin: 1.5rem 0;" />
+      <div style="font-weight: bold; font-size: 0.85rem; letter-spacing: 1px; color: #333;">MENÜ</div>
+      <ul style="list-style: none; padding: 0.5rem 0 0; margin: 0;">
+        <li><a href="foundation.html?page=pages/araclar.html" style="text-decoration: none; color: #007bff;">Araçlar</a></li>
+        <li><a href="foundation.html?page=pages/rezervasyonlar.html" style="text-decoration: none; color: #007bff;">Rezervasyonlar</a></li>
+        <li><a href="foundation.html?page=pages/finans.html" style="text-decoration: none; color: #007bff;">Finans</a></li>
+      </ul>
+    </div>
+
+    <!-- Çıkış -->
+    <div style="text-align: center; margin-top: 2rem;">
+      <button onclick="logout()" style="padding: 0.5rem 1rem; border: none; background-color: #dc3545; color: white; border-radius: 4px; cursor: pointer;">Çıkış Yap</button>
+    </div>
+  </aside>
+
+  <!-- Sağ İçerik -->
+  <main style="flex: 1; padding: 2rem; position: relative;">
+    <!-- Yönetici Profili -->
+    <div style="position: absolute; top: 2rem; right: 2rem; text-align: center;">
+      <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; margin: 0 auto; box-shadow: 0 0 5px rgba(0,0,0,0.2);">
+        <img src="assets/admin-avatar.jpg" alt="Yönetici" style="width: 100%; height: 100%; object-fit: cover;" />
+      </div>
+      <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #333;">Emre Yılmaz</div>
+    </div>
+
+    <!-- Ana İçerik Alanı (gerekirse buraya özel içerik eklenebilir) -->
+    <h1>Yönetici Paneli</h1>
+    <p>Hoş geldiniz! Sol menüden işlem yapmak istediğiniz bölümü seçebilirsiniz.</p>
+  </main>
+</div>
+
+<script>
+  // Tarih bilgisi
+  const now = new Date();
+  const formattedDate = now.toLocaleDateString('tr-TR', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  document.getElementById('currentDate').textContent = formattedDate;
+
+  // Geçici: Bugünkü rezervasyonlar (örnek veriler)
+  const todayReservations = [
+    "Ahmet K. - Renault Clio",
+    "Zeynep T. - Ford Focus"
+  ];
+  const reservationList = document.getElementById('todayReservations');
+  todayReservations.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = item;
+    reservationList.appendChild(li);
+  });
+
+  // Çıkış fonksiyonu
+  function logout() {
+    localStorage.removeItem('admin_access_key');
+    window.location.href = 'index.html';
+  }
+</script>
