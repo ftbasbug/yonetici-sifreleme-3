@@ -12,10 +12,10 @@
 
   <script>
     // Güvenlik kontrolü
-    const isLoggedIn = localStorage.getItem('admin_token') === 'gizli_anahtar';
+    const isLoggedIn = localStorage.getItem('admin_access_key') === 'secure_admin_login';
 
     if (!isLoggedIn) {
-      window.location.href = "admin-panel.html"; // yetkisizse giriş ekranına yönlendir
+      window.location.href = "index.html"; // Yetkisizse giriş ekranına yönlendir
     }
 
     // SPA sayfa yükleme
@@ -31,7 +31,7 @@
     };
 
     // URL'den hedef sayfa belirle
-    const currentPage = new URLSearchParams(window.location.search).get('page') || 'admin-panel.html';
+    const currentPage = new URLSearchParams(window.location.search).get('page') || 'pages/admin-panel.html';
     loadPage(currentPage);
   </script>
 </body>
