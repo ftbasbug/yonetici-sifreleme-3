@@ -43,7 +43,7 @@
       <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #333;">Emre Yılmaz</div>
     </div>
 
-    <!-- Ana İçerik Alanı (gerekirse buraya özel içerik eklenebilir) -->
+    <!-- Ana İçerik Alanı -->
     <h1>Yönetici Paneli</h1>
     <p>Hoş geldiniz! Sol menüden işlem yapmak istediğiniz bölümü seçebilirsiniz.</p>
   </main>
@@ -74,7 +74,7 @@
 
   // Çıkış fonksiyonu
   function logout() {
-    localStorage.removeItem('admin_access_key');
+    localStorage.removeItem('admin_access_key'); // düzeltilmiş key adı
     window.location.href = 'index.html';
   }
 </script>
