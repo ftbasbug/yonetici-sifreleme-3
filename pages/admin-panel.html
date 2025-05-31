@@ -1,4 +1,12 @@
 <!-- pages/admin-panel.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yönetici Paneli</title>
+</head>
+<body>
 <div style="display: flex; height: 100vh; font-family: Arial, sans-serif;">
 
   <!-- Sol Menü -->
@@ -74,7 +82,9 @@
 
   // Çıkış fonksiyonu
   function logout() {
-    localStorage.removeItem('admin_access_key'); // düzeltilmiş key adı
+    localStorage.removeItem('admin_access_key');
     window.location.href = 'index.html';
   }
 </script>
+</body>
+</html>
