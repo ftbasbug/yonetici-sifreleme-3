@@ -1,9 +1,10 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Yönetici Girişi</title>
+  <title>Yeni 8 Yönetici Girişi</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -41,11 +42,6 @@
     button:hover {
       background: #0056b3;
     }
-    .error {
-      color: red;
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-    }
   </style>
 </head>
 <body>
@@ -54,19 +50,42 @@
     <input type="text" id="username" placeholder="Kullanıcı Adı" required autofocus />
     <input type="password" id="password" placeholder="Şifre" required />
     <button type="submit">Giriş Yap</button>
-    <div class="error" id="errorMsg"></div>
   </form>
 
   <script>
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const errorMsg = document.getElementById('errorMsg');
-      errorMsg.textContent = '';
+      const kullaniciAdi = document.getElementById('username').value.trim();
+      const sifre = document.getElementById('password').value.trim();
 
       const formData = new URLSearchParams();
-      formData.append("username", username);
-      formData.append("password", password);
-      formData.append("type", "login")
+      formData.append("username", kullaniciAdi);
+      formData.append("password", sifre);
+      formData.append("type", "login");
+
+      fetch('https://script.google.com/macros/s/AKfycbxQcPEYh6_3aRp1xjN5vCtQjiAQbHDwqfUkl_03d46_VkuH-JQOHWYFQEjslqf3rBd3rw/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          // Başarılı giriş: localStorage'a anahtar yaz ve yönlendir
+          localStorage.setItem('admin_access_key', 'secure_admin_login');
+          window.location.href = 'foundation.html?page=admin-panel.html';
+        } else {
+          alert('Kullanıcı adı veya şifre yanlış!');
+        }
+      })
+      .catch(err => {
+        console.error('Sunucu hatası:', err);
+        alert('Sunucuya bağlanılamadı.');
+      });
+    });
+  </script>
+</body>
+</html>
